@@ -1,0 +1,63 @@
+.container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: #FDF3EB;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0 20px 20px;
+    width: 350px;
+}
+
+.container li {
+    padding-left: 0;
+}
+
+.container li a {
+    font-family: Futura Std;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    color: rgba(0, 0, 0, 0.87);
+    text-decoration: none;
+}
+
+.container hr {
+    background: rgba(33, 33, 33, 0.08);
+    mix-blend-mode: normal;
+}
+
+.logo {
+    margin-bottom: 35px;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+.brand {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+.copyright {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+
+    letter-spacing: 0.4px;
+
+    color: #000000;
+
+    margin-top: 3px;
+}

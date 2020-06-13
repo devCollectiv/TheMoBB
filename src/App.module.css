@@ -1,0 +1,15 @@
+/*@font-face {*/
+/*    font-family: 'Futura Std';*/
+/*    font-weight: normal;*/
+/*    src: local('Futura Std Book'), url('./fonts/FuturaStdBook/FuturaStdBook.otf') format('opentype');*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: 'Futura Std';*/
+/*    font-weight: bold;*/
+/*    src: local('Futura Std Heavy'), url('./fonts/FuturaStdHeavy/FuturaStdHeavy.otf') format('opentype');*/
+/*}*/
+
+body {
+    margin: 0;
+}

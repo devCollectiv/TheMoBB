@@ -1,0 +1,8 @@
+.cache
+build
+.idea
+node_modules
+
+yarn-error.log
+.DS_Store
+.git-together
