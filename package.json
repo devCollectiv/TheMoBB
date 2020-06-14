@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "REACT_APP_STAGE=local parcel src/index.html --out-dir ./build  --no-source-maps",
+    "start": "REACT_APP_STAGE=local parcel src/index.html --out-dir ./build  --no-source-maps --https",
     "build": "parcel build src/index.html --out-dir ./build --public-url ./ --no-source-maps",
     "test": "jest",
     "test:watch": "jest --watch",

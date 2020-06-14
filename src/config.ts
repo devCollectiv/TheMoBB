@@ -1,13 +1,15 @@
 export type EnvConfig = {
   apiUrl: string,
   auth0Domain: string,
-  auth0ClientId: string
+  auth0ClientId: string,
+  audience: string
 }
 
 const local: EnvConfig = {
-  apiUrl: 'https://apiUrl.com',
+  apiUrl: 'https://mobb.us.auth0.com/api/v2huh/',
   auth0Domain: "mobb.us.auth0.com",
-  auth0ClientId: "FqBnoP4aQpkXJHIN12kI3BYuFuRoLFea"
+  auth0ClientId: "FqBnoP4aQpkXJHIN12kI3BYuFuRoLFea",
+  audience: "https://mobb.dev.com"
 }
 
 // const dev: EnvConfig = {

@@ -4,19 +4,21 @@
  * logged in.
  */
 
-import React, {useState, useEffect, useContext, FunctionComponent} from 'react'
-import createAuth0Client, {Auth0Client, RedirectLoginOptions} from '@auth0/auth0-spa-js'
+import React, {FunctionComponent, useContext, useEffect, useState} from 'react'
+import createAuth0Client, {Auth0Client} from '@auth0/auth0-spa-js'
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
     window.history.replaceState({}, document.title, window.location.pathname);
 
 type Auth0Provider = {
-  children:any,
-  onRedirectCallback: any,
-  domain: string,
-  client_id: string,
-  redirect_uri: string,
-  advancedOptions: any
+    children: any,
+    onRedirectCallback: any,
+    domain: string,
+    client_id: string,
+    redirect_uri: string,
+    advancedOptions: any,
+    audience: string,
+    cacheLocation?: any
 };
 
 const initialContextState: any = {loading: false};
@@ -29,7 +31,7 @@ export const Auth0Provider: FunctionComponent<Auth0Provider> = ({
                               }: Auth0Provider) => {
     const [isAuthenticated, setIsAuthenticated] = useState({} as boolean);
     const [user, setUser] = useState();
-    const [auth0Client, setAuth0] = useState({} as Auth0Client);
+    const [auth0Client, setAuth0Client] = useState({} as Auth0Client);
     const [loading, setLoading] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
 
@@ -37,11 +39,11 @@ export const Auth0Provider: FunctionComponent<Auth0Provider> = ({
       let auth0FromHook:any ={};
 
         const initAuth0 = async () => {
-          setLoading(true);
-          auth0FromHook = await createAuth0Client(initOptions);
-          setAuth0(auth0FromHook);
+            setLoading(true);
+            auth0FromHook = await createAuth0Client(initOptions);
+            setAuth0Client(auth0FromHook);
 
-          /** when the redirect comes back to our application it will contain the code and state parameters **/
+            /** when the redirect comes back to our application it will contain the code and state parameters **/
             if (window.location.search.includes("code=") &&
                 window.location.search.includes("state=")) {
                 const { appState } = await auth0FromHook.handleRedirectCallback();
