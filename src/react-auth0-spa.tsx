@@ -10,25 +10,14 @@ import createAuth0Client, {Auth0Client} from '@auth0/auth0-spa-js'
 const DEFAULT_REDIRECT_CALLBACK = () =>
     window.history.replaceState({}, document.title, window.location.pathname);
 
-type Auth0Provider = {
-    children: any,
-    onRedirectCallback: any,
-    domain: string,
-    client_id: string,
-    redirect_uri: string,
-    advancedOptions: any,
-    audience: string,
-    cacheLocation?: any
-};
-
 const initialContextState: any = {loading: false};
 export const Auth0Context = React.createContext(initialContextState);
 export const useAuth0 = () => useContext(Auth0Context);
-export const Auth0Provider: FunctionComponent<Auth0Provider> = ({
+export const Auth0Provider: FunctionComponent<mobbAuth0.Auth0Provider> = ({
                                   children,
                                   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
                                   ...initOptions
-                              }: Auth0Provider) => {
+                              }: mobbAuth0.Auth0Provider) => {
     const [isAuthenticated, setIsAuthenticated] = useState({} as boolean);
     const [user, setUser] = useState();
     const [auth0Client, setAuth0Client] = useState({} as Auth0Client);

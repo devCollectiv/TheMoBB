@@ -19,10 +19,6 @@ const onRedirectCallback = (appState: { targetUrl: any; }) => {
   );
 };
 
-const advancedOptions = {
-  clearTransactionCookies: true
-}
-
 ReactDOM.render(
     /**
      * Wrap App in Auth0Provider component that is provided by the SDK wrapper to integrate with SDK.
@@ -34,8 +30,8 @@ ReactDOM.render(
         redirect_uri={window.location.origin}
         onRedirectCallback={onRedirectCallback}
         audience={config.audience}
-        advancedOptions={advancedOptions}
         // cacheLocation="localstorage"
+        // If this is here users will be able to maintain session thru a refresh...otherwise session dies you have to login again
     >
       <App />
     </Auth0Provider>,

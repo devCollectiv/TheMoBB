@@ -11,3 +11,16 @@ declare module '*.png' {
 declare module '*.txt'
 declare module '*.csv'
 declare module '*.json'
+
+declare namespace mobbAuth0 {
+    type Auth0Provider = {
+        children: any,
+        onRedirectCallback: any,
+        domain: string,
+        client_id: string,
+        redirect_uri: string,
+        advancedOptions?: any,
+        audience: string,
+        cacheLocation?: any
+    };
+}
