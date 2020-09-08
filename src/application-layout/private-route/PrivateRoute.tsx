@@ -1,28 +1,12 @@
-import React, {FunctionComponent, Component, useEffect} from 'react'
-import {Route, RouteProps} from 'react-router-dom'
-import {useAuth0} from '../../react-auth0-spa'
+import React from 'react';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { Route } from 'react-router-dom';
 
-const PrivateRoute: FunctionComponent<RouteProps> = ({ component: Component, path, ...rest }) => {
-  const { loading, isAuthenticated, loginWithRedirect } = useAuth0();
+const PrivateRoute = ({component, ...args}: React.PropsWithChildren<any>) => (
+    <Route
+        component={withAuthenticationRequired(component, {})}
+        {...args}
+    />
+)
 
-  useEffect(() => {
-    if (loading || isAuthenticated) {
-      return;
-    }
-    const fn = async () => {
-      await loginWithRedirect({
-        appState: {targetUrl: window.location.pathname}
-      });
-    };
-    fn();
-    console.log("Private route ", window.location.pathname);
-  }, [loading, isAuthenticated, loginWithRedirect, path]);
-
-  const render = (props:RouteProps) =>
-      // @ts-ignore
-      isAuthenticated === true ? <Component {...props} /> : null;
-
-  return <Route path={path} render={render} {...rest} />;
-};
-
-export default PrivateRoute;
+export default PrivateRoute

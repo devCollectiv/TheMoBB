@@ -1,5 +1,4 @@
-import React from 'react'
-import {FunctionComponent} from 'react'
+import React, {FunctionComponent} from 'react'
 import Sidebar from './sidebar/Sidebar'
 import AdminHome from './admin-home/AdminHome'
 

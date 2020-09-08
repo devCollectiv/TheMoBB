@@ -4,14 +4,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { Auth0Provider } from "./react-auth0-spa";
+import { Auth0Provider } from "@auth0/auth0-react";
 import config from "./config";
 import history from "./utils/history";
 import 'regenerator-runtime/runtime'
 
 // A function that routes the user to the right place
 // after login
-const onRedirectCallback = (appState: { targetUrl: any; }) => {
+const onRedirectCallback = (appState: any) => {
   history.push(
       appState && appState.targetUrl
           ? appState.targetUrl
@@ -26,11 +26,10 @@ ReactDOM.render(
      */
     <Auth0Provider
         domain={config.auth0Domain}
-        client_id={config.auth0ClientId}
+        clientId={config.auth0ClientId}
         redirect_uri={window.location.origin}
-        onRedirectCallback={onRedirectCallback}
-        audience={config.audience}
-        // cacheLocation="localstorage"
+        // audience={config.audience}
+        cacheLocation="localstorage"
         // If this is here users will be able to maintain session thru a refresh...otherwise session dies you have to login again
     >
       <App />

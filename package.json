@@ -10,25 +10,26 @@
     "build:prod": "REACT_APP_STAGE=prod parcel build src/index.html --out-dir ./build --public-url ./ --no-source-maps"
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.8.0",
+    "@auth0/auth0-react": "^1.0.0",
     "@material-ui/core": "^4.0.0",
     "@material-ui/icons": "^4.9.1",
+    "@types/react-router-dom": "^5.1.5",
     "axios": "^0.19.2",
     "history": "latest",
     "material-ui": "^0.20.2",
     "parcel-plugin-clean-dist": "^0.0.6",
     "postcss-modules": "^2.0.0",
-    "react": ">= 16.8",
+    "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-dropzone": "^10.2.2",
-    "react-new-window": "^0.1.2",
-    "react-router-dom": "^5.1.2"
+    "react-json-view": "^1.19.1",
+    "react-new-window": "^0.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-0",
     "@babel/plugin-transform-runtime": "^7.9.0",
-    "@testing-library/jest-dom": "^5.5.0",
-    "@testing-library/react": "^10.0.3",
+    "@testing-library/jest-dom": "^5.10.0",
+    "@testing-library/react": "^10.2.1",
     "@types/axios": "^0.14.0",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
@@ -36,13 +37,12 @@
     "@types/material-ui": "^0.21.7",
     "@types/react": "^16.8.6",
     "@types/react-dom": "^16.9.6",
-    "@types/react-router-dom": "^5.1.3",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
+    "@types/react-router-dom": "^5.1.5",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^25.3.0",
     "jest-junit": "^10.0.0",
     "parcel-bundler": "^1.12.4",
+    "react-router-dom": "^5.2.0",
     "ts-jest": "^25.3.1",
     "typescript": "^3.8.3"
   }

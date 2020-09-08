@@ -3,7 +3,7 @@ import styles from './Sidebar.module.css'
 import {Divider, List, ListItem} from '@material-ui/core'
 // import logo from '../../assets/ablogo.png'
 import {Link, NavLink} from 'react-router-dom'
-import {useAuth0} from '../../react-auth0-spa'
+import {useAuth0} from '@auth0/auth0-react'
 
 const Sidebar: FunctionComponent = () => {
   const {isAuthenticated, loginWithRedirect, logout} = useAuth0()
@@ -27,10 +27,20 @@ const Sidebar: FunctionComponent = () => {
               </>
           )}
           <Divider/>
+            {isAuthenticated && (
+                <>
+                    <Divider/>
+
+                    <ListItem>
+                        <NavLink data-testid='ImportResource' to={'/importResource'}>Import Resource</NavLink>
+                    </ListItem>
+                </>
+            )}
+            <Divider/>
           <ListItem>
             {
               !isAuthenticated && (
-                <NavLink to={''} onClick={() => loginWithRedirect({})}>Log in</NavLink>
+                <NavLink to={''} onClick={() => loginWithRedirect()}>Log in</NavLink>
               )
             }
             {
