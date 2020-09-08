@@ -5,15 +5,3 @@
   background-color: #FFFDFB;
   padding-left: 375px;
 }
-
-.title {
-  display: block;
-  font-family: 'Futura Std';
-  font-style: normal;
-  font-weight: 800;
-  font-size: 48px;
-  line-height: 56px;
-  color: rgba(0, 0, 0, 0.87);
-  margin-top: 35px;
-  margin-bottom: 45px;
-}

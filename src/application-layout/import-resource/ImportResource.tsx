@@ -6,11 +6,12 @@ import {makeStyles, Theme} from "@material-ui/core/styles";
 import SimpleTabs from "../components/tabs/tabs";
 import http from "../../services/http";
 import ReactJson from "react-json-view";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: theme.palette.background.default,
     },
     flexContainer: {
         display: "flex",
@@ -24,8 +25,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     fileMetadata: {
         display: "flex",
-        color: "whitesmoke",
-        backgroundColor: "black",
+        color: theme.palette.primary.contrastText,
+        backgroundColor: theme.palette.secondary.main,
     },
     metadata: {
         marginRight: "28px",
@@ -38,6 +39,26 @@ const useStyles = makeStyles((theme: Theme) => ({
         overflowY: "scroll",
         height: "580px",
         width: "450px"
+    },
+    buttonsContainer: {
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        marginTop: "48px",
+    },
+    submitButton: {
+        marginRight: "4px"
+    },
+    dryRunButton:{
+        marginRight: "4px",
+        backgroundColor: theme.palette.secondary.main,
+        color: theme.palette.primary.contrastText
+    },
+    sourceTab: {
+        height:"70px"
+    },
+    conversionTab:{
+        height: "100px"
     }
 }));
 
@@ -85,10 +106,14 @@ const ImportResource: FunctionComponent = () => {
         return <div>Loading...</div>;
     }
 
+    const submitDryRun = function(){
+        setResource({...resource, isDryRun: true})
+        callImportResourceLambda();
+    }
+
     const callImportResourceLambda = function () {
         console.log("submitting Resource", resource.json);
         if (resource.json) {
-
 
 
             http.post("https://q72kfs7g69.execute-api.us-east-1.amazonaws.com/dev/importResources", resource).then((response) => {
@@ -113,15 +138,15 @@ const ImportResource: FunctionComponent = () => {
                 console.log('e readAsText target = ', e.target);
                 try {
                     json = JSON.parse(e.target.result);
-                    if(json){
+                    if (json) {
 
-                    console.log("Data from file", JSON.stringify(json,
-                        undefined, 4))
-                    setResource({
-                        ...resource,
-                        // data: JSON.stringify(json),
-                        json: json,
-                    });
+                        console.log("Data from file", JSON.stringify(json,
+                            undefined, 4))
+                        setResource({
+                            ...resource,
+                            // data: JSON.stringify(json),
+                            json: json,
+                        });
                     }
                     // alert('json global var has been set to parsed json of this file here it is unevaled = \n' + JSON.stringify(json));
                 } catch (ex) {
@@ -136,12 +161,12 @@ const ImportResource: FunctionComponent = () => {
         <div data-testid='mobb-user-profile'>
             {(isLoading || !user) && <div>Loading...</div>}
             {(!isLoading && user) && <Fragment>
-                <h1>Import Resource</h1>
+                <Typography><h1>Import Resource</h1></Typography>
                 <form onSubmit={callImportResourceLambda()}>
                     <div className={classes.flexContainer}>
                         <div>
                             <SimpleTabs title="Source">
-                                <div title="Upload File">
+                                <div title="Upload File" className={classes.sourceTab}>
                                     <Button
                                         variant="contained"
                                         component="label"
@@ -156,13 +181,13 @@ const ImportResource: FunctionComponent = () => {
                                     </Button>
 
                                 </div>
-                                <div title="URL">
+                                <div title="URL" className={classes.sourceTab}>
                                     <TextField name="url" onChange={(event) => handleChange(event)} value={resource.url}
                                                id="outlined-basic" label="Source URL" variant="outlined"/>
                                 </div>
                             </SimpleTabs>
                             <SimpleTabs title="Conversion">
-                                <div title="Custom">
+                                <div title="Custom" className={classes.conversionTab}>
                                     <TextField name="conversionKey" onChange={(event) => handleChange(event)}
                                                value={resource.conversionKey} id="outlined-basic" label="Key Name"
                                                variant="outlined"/>
@@ -172,27 +197,24 @@ const ImportResource: FunctionComponent = () => {
                                                variant="outlined"/>
                                     <br/>
                                 </div>
-                                <div title="Existing">
+                                <div title="Existing"className={classes.conversionTab}>
                                     Previous conversion
                                 </div>
                             </SimpleTabs>
-                            <div>
-                                Dry Run?
-                                <Checkbox
-                                    name="isDryRun"
-                                    checked={resource.isDryRun}
-                                    onChange={(event) => handleChange(event)}
-                                    inputProps={{'aria-label': 'primary checkbox'}}
-                                />
-                                <br/>
-                                <Button type="submit">Submit</Button>
+                            <div className={classes.buttonsContainer}>
+                                <div>
+                                    <Button className={classes.dryRunButton} variant="contained" type="button"  onClick={()=>submitDryRun()}>Dry Run</Button>
+                                    <Button className={classes.submitButton} variant="contained" type="submit">Import</Button>
+
+                                </div>
                             </div>
                         </div>
                         <div className={classes.jsonContainer}>
                             {currentfile.name !== "" && <div className={classes.fileMetadata}>
-                                <div className={classes.metadata}>Filename: {currentfile.name}</div>
-                                <div className={classes.metadata}>Type: {currentfile.type}</div>
-                                <div className={classes.metadata}>Size: {currentfile.size}</div>
+
+                                <div><Typography className={classes.metadata}>Filename: <b>{currentfile.name}</b></Typography></div>
+                                <div><Typography className={classes.metadata}>Type: <b>{currentfile.type}</b></Typography></div>
+                                <div><Typography className={classes.metadata}>Size: <b>{currentfile.size}</b></Typography></div>
                             </div>}
                             {currentfile.name !== "" && <div className={classes.jsonObject}>
                                 <ReactJson src={resource.json || {}}/>

@@ -1,13 +1,3 @@
-.container {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    background-color: #FDF3EB;
-    display: flex;
-    flex-direction: column;
-    padding: 40px 0 20px 20px;
-    width: 350px;
-}
 
 .container li {
     padding-left: 0;

@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import theme from "../../../utils/theme";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -12,8 +13,21 @@ interface TabPanelProps {
     value: any;
 }
 
+
+const useTabPanelStyles = makeStyles((theme: Theme) => ({
+    componentBackground: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.default,
+    },
+    tabText: {
+        letterSpacing: ".18px",
+    }
+}));
+
 function TabPanel(props: TabPanelProps) {
     const {children, value, index, ...other} = props;
+
+    const classes = useTabPanelStyles(theme)
 
     return (
         <div
@@ -24,8 +38,8 @@ function TabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box p={3}>
-                    <Typography>{children}</Typography>
+                <Box p={3} className={classes.componentBackground}>
+                    <Typography className={classes.tabText}>{children}</Typography>
                 </Box>
             )}
         </div>
@@ -39,18 +53,21 @@ function a11yProps(index: any) {
     };
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useSimpleTabStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
     },
     indent: {
         marginLeft: "16px"
+    },
+    tabContainer: {
+        backgroundColor: theme.palette.primary.light,
+        color: theme.palette.primary.main
     }
 }));
 
 const SimpleTabs = (props: { children: any[], title: string }) => {
-    const classes = useStyles();
+    const classes = useSimpleTabStyles(theme);
     const {children} = props;
     const [value, setValue] = React.useState(0);
 
@@ -60,13 +77,13 @@ const SimpleTabs = (props: { children: any[], title: string }) => {
 
     return (
         <div className={classes.root}>
-            <h3>{props.title}</h3>
+            <Typography><h3>{props.title}</h3></Typography>
             <div className={classes.indent}>
                 <AppBar position="static">
-                    <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                    <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" indicatorColor="secondary">
                         {
                             React.Children.map(children, (child, index) => {
-                                return (<Tab label={child.props.title} {...a11yProps(index)} />)
+                                return (<Tab className={classes.tabContainer} label={child.props.title} {...a11yProps(index)} />)
                             })
                         }
                     </Tabs>
