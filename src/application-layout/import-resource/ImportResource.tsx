@@ -1,7 +1,7 @@
 import React, {Fragment, FunctionComponent} from 'react'
 import {useAuth0} from "@auth0/auth0-react";
 import TextField from '@material-ui/core/TextField';
-import {Button, Checkbox} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import SimpleTabs from "../components/tabs/tabs";
 import http from "../../services/http";
@@ -54,11 +54,24 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: theme.palette.secondary.main,
         color: theme.palette.primary.contrastText
     },
+    uploadButton:{
+        backgroundColor: theme.palette.secondary.main,
+        color: theme.palette.primary.contrastText,
+    },
+    uploadButtonContainer:{
+        paddingTop: "12px"
+    },
     sourceTab: {
-        height:"70px"
+        display: "flex",
+        height:"70px",
+        alignItems: "center",
+        flexDirection: "column"
     },
     conversionTab:{
-        height: "100px"
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        height: "116px"
     }
 }));
 
@@ -167,18 +180,22 @@ const ImportResource: FunctionComponent = () => {
                         <div>
                             <SimpleTabs title="Source">
                                 <div title="Upload File" className={classes.sourceTab}>
-                                    <Button
-                                        variant="contained"
-                                        component="label"
-                                    >
-                                        Upload File
-                                        <input
-                                            type="file"
-                                            style={{display: "none"}}
-                                            name="uploadedFile"
-                                            onChange={(event) => handleChange(event)}
-                                        />
-                                    </Button>
+                                    <div className={classes.uploadButtonContainer}>
+
+                                        <Button
+                                            variant="contained"
+                                            component="label"
+                                            className={classes.uploadButton}
+                                        >
+                                            Upload File
+                                            <input
+                                                type="file"
+                                                style={{display: "none"}}
+                                                name="uploadedFile"
+                                                onChange={(event) => handleChange(event)}
+                                            />
+                                        </Button>
+                                    </div>
 
                                 </div>
                                 <div title="URL" className={classes.sourceTab}>
@@ -188,6 +205,8 @@ const ImportResource: FunctionComponent = () => {
                             </SimpleTabs>
                             <SimpleTabs title="Conversion">
                                 <div title="Custom" className={classes.conversionTab}>
+                                    <div>
+
                                     <TextField name="conversionKey" onChange={(event) => handleChange(event)}
                                                value={resource.conversionKey} id="outlined-basic" label="Key Name"
                                                variant="outlined"/>
@@ -196,9 +215,10 @@ const ImportResource: FunctionComponent = () => {
                                                value={resource.conversionSchema} id="outlined-basic" label="Schema Name"
                                                variant="outlined"/>
                                     <br/>
+                                    </div>
                                 </div>
                                 <div title="Existing"className={classes.conversionTab}>
-                                    Previous conversion
+                                    <div>Previous conversion</div>
                                 </div>
                             </SimpleTabs>
                             <div className={classes.buttonsContainer}>
